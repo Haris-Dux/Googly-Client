@@ -1,0 +1,16 @@
+.bg_auth {
+  background-image: url("../assets/banners/auth.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.blur_bg {
+  /* From https://css.glass */
+  background: rgba(52, 52, 52, 0.41);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4.5px);
+  -webkit-backdrop-filter: blur(4.5px);
+  border: 1px solid rgba(52, 52, 52, 0.25);
+}

@@ -1,0 +1,6 @@
+.selectedSectionbg {
+  background-image: url("../../assets/banners/Single_product_page.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

@@ -1,0 +1,22 @@
+Inter {
+  font-family: "Inter", sans-serif;
+}
+
+Noto {
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+.heroSectionbg {
+  background-image: url("../../assets/banners/main.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+.up:hover {
+  transform: translateY(-8px);
+  transition: 0.5s ease;
+}
+
+
