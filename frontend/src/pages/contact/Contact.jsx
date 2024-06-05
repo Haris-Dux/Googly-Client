@@ -136,7 +136,7 @@ const Contact = () => {
                   <p className="flex items-start">
                     <IoMail className="text-white size-9 p-2" />
                     <span className="mx-3 mt-1 text-gray-300 text-wrap">
-                      Fyb@gmail.com
+                      support@googly-smart.com
                     </span>
                   </p>
 

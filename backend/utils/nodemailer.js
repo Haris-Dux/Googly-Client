@@ -9,7 +9,7 @@ export async function sendEmail(to, from) {
 `;
 
   let transport = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.titan.email",
     port: 587,
     secure: false,
     auth: {
@@ -22,7 +22,7 @@ export async function sendEmail(to, from) {
   });
 
   let mailoptions = {
-    from,
+    from:process.env.EMAIL_AUTH_USER_EMAIL,
     to: email,
     subject:"Reset Password Code",
     html: output,
