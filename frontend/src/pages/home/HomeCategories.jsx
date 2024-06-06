@@ -33,7 +33,7 @@ const HomeCategories = () => {
             <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-8">
               {/* CARD 1 */}
               <Link
-                to="/shop"
+                to="/shop?category=Women"
                 onClick={handleMoveTop}
                 className="relative group overflow-hidden rounded-lg shadow transition hover:shadow-lg"
               >
@@ -60,7 +60,7 @@ const HomeCategories = () => {
 
               {/* CARD 2 */}
               <Link
-                to="/shop"
+                to="/shop?category=Men"
                 onClick={handleMoveTop}
                 className="relative group overflow-hidden rounded-lg shadow transition hover:shadow-lg"
               >
