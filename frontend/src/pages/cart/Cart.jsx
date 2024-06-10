@@ -118,7 +118,8 @@ const Cart = () => {
 
                         <div>
                           <h3 className="Noto text-lg tracking-wide font-bold text-[#333]">
-                            {product?.name}
+                          {product?.name} <span className="text-base Noto">({product?.product_code})</span>
+
                           </h3>
                           <h6 className="text-md text-gray-500 mt-2 flex justify-center sm:justify-start items-center">
                             Price:{" "}

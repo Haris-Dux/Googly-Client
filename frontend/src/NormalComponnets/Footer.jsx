@@ -2,9 +2,6 @@ import { Link } from "react-router-dom";
 import { FaPhone } from "react-icons/fa6";
 import { FaFacebookF } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
-// import { FaLinkedinIn } from "react-icons/fa6";
-// import { FaTiktok } from "react-icons/fa";
-import logo from "../assets/logo.png";
 
 const Footer = () => {
   const handleMoveToTop = () => {
@@ -20,7 +17,7 @@ const Footer = () => {
             {/* LOGO & HEADING */}
             <div className="sm:col-span-2">
               <h1 className="max-w-lg flex items-center text-xl font-semibold tracking-tight text-black xl:text-2xl">
-                <img className="w-auto h-16" src={logo} alt="logo" />
+                <img className="w-auto h-16" src={"https://cdn.shopify.com/s/files/1/0649/1399/8024/files/25.3_KB_Size_Googly_Logo.png?v=1718027480"} alt="logo" />
               </h1>
               <p className="max-w-sm text-[1rem] mt-3">
                 Welcome to Googly, where style meets vision! Explore our curated
@@ -110,6 +107,34 @@ const Footer = () => {
                 >
                   <FaPhone /> +92 310 5015888
                 </a>
+                <a
+                      className="flex items-center justify-center gap-1.5 "
+                      href="#"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="size-5 shrink-0 text-black"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                        />
+                      </svg>
+
+                      <a
+                        href="mailto:support@googly-smart.com"
+                        target="_blank"
+                        className="sm:flex-1 text-black"
+                      >
+                        support@googly-smart.com
+                      </a>
+                    </a>
+
 
                 {/* SOCIAL LINKS */}
                 <div className="links pt-2 flex items-center justify-start gap-2.5">
@@ -127,6 +152,7 @@ const Footer = () => {
                   >
                     <FaInstagram className="text-white bg-[#3c3b3b] h-7 w-7 p-1.5 rounded-full" />
                   </a>
+                  
                 </div>
               </div>
             </div>

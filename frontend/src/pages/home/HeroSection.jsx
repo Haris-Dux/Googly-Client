@@ -1,9 +1,5 @@
 import { IoIosArrowForward } from "react-icons/io";
-import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { FaPhoneAlt } from "react-icons/fa";
-import { IoSearchOutline } from "react-icons/io5";
-import { BsHandbag } from "react-icons/bs";
+import { Link } from "react-router-dom";
 import "../../NormalComponnets/Header.css";
 import "./Home.css";
 
@@ -14,7 +10,7 @@ const HeroSection = () => {
 
   return (
     <>
-      <section className="heroSectionbg min-h-[120vh] ">
+      <section className="heroSectionbg min-h-[100vh] sm:min-h-[120vh]">
         <div className="max-w-5xl xl:max-w-6xl xxl:max-w-7xl px-4 sm:px-16 lg:px-14 xl:px-0 pt-40 pb-0 lg:pt-24 lg:pb-0 mx-auto">
           <div className="items-center lg:flex lg:min-h-screen">
             <div className="w-full pt-0 sm:pt-0 lg:pt-0 lg:w-1/2 antialiased">

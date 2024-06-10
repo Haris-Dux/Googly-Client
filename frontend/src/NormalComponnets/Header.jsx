@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import logo2 from "../assets/logo2.png";
 import "./Header.css";
 import { useDispatch, useSelector } from "react-redux";
 import { IoSearchOutline } from "react-icons/io5";
@@ -138,7 +137,7 @@ const Header = () => {
               >
                 <img
                   className="w-auto h-10 sm:h-16"
-                  src={logo2}
+                  src={"https://cdn.shopify.com/s/files/1/0649/1399/8024/files/22.9_KB_Size_Googly_white_Logo.png?v=1718027791"}
                   alt="Googly Logo"
                 />
               </Link>
@@ -146,6 +145,13 @@ const Header = () => {
               {/* -------------- HAMBURGER BUTTON FOR MOBILE VIEW -------------- */}
               {!isOpen ? (
                 <div className="flex lg:hidden">
+                    {/* SEARCH */}
+                <Link
+                  onClick={openModal}
+                  className="px-0 pb-0.5 text-lg font-medium tracking-wide text-white rounded-xl"
+                >
+                  <IoSearchOutline size={22} />
+                </Link>
                   <Link
                     to="/cart"
                     onClick={() => window.scroll(0, 0)}

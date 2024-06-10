@@ -21,8 +21,8 @@ const SelectedItem = React.lazy(() =>
   import("./pages/selectedItem/SelectedItem")
 );
 
-const Signup = React.lazy(() => import("./auth/Signup"));
-const Login = React.lazy(() => import("./auth/Login"));
+import Signup from "./auth/Signup"; 
+import Login from "./auth/Login";  
 import ForgetPass from "./auth/ForgetPass";
 import OtpChecker from "./auth/OtpChecker";
 import ResetPass from "./auth/ResetPass";
@@ -37,7 +37,7 @@ import Blog3 from "./pages/blog/Blog3";
 const OrderSuccessPage = React.lazy(() =>
   import("./pages/checkout/OrderSuccessPage")
 );
-import Loader from "./NormalComponnets/Loader";
+import Loader2 from "./NormalComponnets/Loader";
 
 function App() {
   const dispatch = useDispatch();
@@ -80,7 +80,7 @@ function App() {
           <Route
             path="/"
             element={
-              <Suspense fallback={<Loader />}>
+              <Suspense fallback={<Loader2 />}>
                 <HomePage />
               </Suspense>
             }
@@ -91,7 +91,7 @@ function App() {
           <Route
             path="/shop"
             element={
-              <Suspense fallback={<Loader />}>
+              <Suspense fallback={<Loader2 />}>
                 <Shop />
               </Suspense>
             }
@@ -99,37 +99,16 @@ function App() {
           <Route
             path="/selectedItem/:id"
             element={
-              <Suspense fallback={<Loader />}>
+              <Suspense fallback={<Loader2 />}>
                 <SelectedItem />
               </Suspense>
             }
           />
-          <Route
-            path="//order-success"
-            element={
-              <Suspense fallback={<Loader />}>
-                <OrderSuccessPage />
-              </Suspense>
-            }
-          />
+          <Route path="//order-success" element={<OrderSuccessPage />} />
 
           {/* ---------- AUTH ROUTES ---------- */}
-          <Route
-            path="/signup"
-            element={
-              <Suspense fallback={<Loader />}>
-                <Signup />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <Suspense fallback={<Loader />}>
-                <Login />
-              </Suspense>
-            }
-          />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/forget" element={<ForgetPass />} />
           <Route path="/otp/:id" element={<OtpChecker />} />
           <Route path="/profile" element={<UserProfile />} />

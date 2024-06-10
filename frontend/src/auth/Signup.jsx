@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { createuserAsync } from "../features/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "react-loaders";
+import "./auth.css";
 
 const Signup = () => {
   const dispatch = useDispatch();

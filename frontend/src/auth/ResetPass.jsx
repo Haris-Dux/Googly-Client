@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { resetPassAsync } from "../features/authSlice";
 import { useDispatch } from "react-redux";
+import "./auth.css";
 
 const ResetPass = () => {
   const dispatch = useDispatch();

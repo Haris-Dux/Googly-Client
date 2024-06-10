@@ -139,13 +139,6 @@ const Contact = () => {
                       support@googly-smart.com
                     </span>
                   </p>
-
-                  <p className="flex items-start">
-                    <MdLocationPin className="text-white size-9 p-2" />
-                    <span className="mx-3 mt-1 text-gray-300 text-wrap">
-                      2155 Briarwood Drive Camden, NJ 08102
-                    </span>
-                  </p>
                 </div>
               </div>
             </div>

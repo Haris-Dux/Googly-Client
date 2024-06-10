@@ -66,9 +66,9 @@ const PopularProducts = () => {
                   />
 
                   <div className="py-5 text-center">
-                    <h3 className="mb-3 text-lg sm:text-xl font-semibold text-gray-800">
-                      {data?.name}
-                    </h3>
+                  <h3 className="mb-3 text-md sm:text-xl font-semibold text-gray-800">
+                          {data?.name} <span className="text-base">({data?.product_code})</span>
+                        </h3>
 
                     <div className="mb-3 flex items-center justify-center gap-0.5">
                       {data?.averageRating === 0 ? (

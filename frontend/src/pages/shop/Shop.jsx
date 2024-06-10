@@ -149,8 +149,8 @@ const Shop = () => {
                       />
 
                       <div className="py-5 text-center overflow-hidden">
-                        <h3 className="mb-3 text-lg sm:text-xl font-semibold text-gray-800">
-                          {data.name}
+                      <h3 className="mb-3 text-md sm:text-xl font-semibold text-gray-800">
+                          {data?.name} <span className="text-base">({data?.product_code})</span>
                         </h3>
 
                         <div className="mb-3 flex items-center justify-center gap-0.5">
@@ -192,7 +192,7 @@ const Shop = () => {
                 </>
               ) : (
                 <>
-                  {[0, 1, 2, 3, 4, 5].map((_data, index) => (
+                  {[0, 1, 2, 3, 4, 5,6].map((_data, index) => (
                     <div key={index}>
                       <div className="group mb-5 relative rounded-lg w-full bg-white border border-gray-300 cursor-pointer animate-pulse">
                         <div className="bg-gray-300 h-56 w-full"></div>

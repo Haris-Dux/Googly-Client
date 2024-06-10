@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { forgetuserAsync } from "../features/authSlice";
 import { useDispatch, useSelector } from "react-redux";
+import "./auth.css";
 
 const ForgetPass = () => {
   const dispatch = useDispatch();

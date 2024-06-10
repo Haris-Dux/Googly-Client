@@ -10,15 +10,6 @@ import { getProductByIdAsync } from "../../features/productSlice";
 import { useDispatch, useSelector } from "react-redux";
 import BestSeller from "../home/BestSeller";
 
-// STAR RATING
-const StarRating = ({ rating }) => {
-  const stars = [];
-  for (let i = 0; i < rating; i++) {
-    stars.push(<FaStar key={i} className="text-[#FFC209]" />);
-  }
-  return <div className="flex">{stars}</div>;
-};
-
 const SelectedItem = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
