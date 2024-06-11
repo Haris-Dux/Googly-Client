@@ -35,6 +35,7 @@ const MyOrders = () => {
   }, [navigate, user]);
 
   const allOrder = useSelector((state) => state.orders.allOrders);
+  const { deleteLoading } = useSelector((state) => state.orders);
   const orderLoading = useSelector((state) => state.orders.loading);
 
   const selectedOrder = allOrder.find((data) => data?.id === orderId);
@@ -164,12 +165,7 @@ const MyOrders = () => {
                           {new Date(data?.createdAt).toLocaleDateString()}
                         </div>
                       </div>
-                      <div className="mb-4">
-                        <div className="text-md sm:text-md font-semibold">
-                          Shipping
-                        </div>
-                        <div className={`text-md font-medium`}>Rs. 280</div>
-                      </div>
+                     
 
                       <div className="mb-4">
                         <div className="text-md sm:text-md font-semibold">
@@ -273,6 +269,7 @@ const MyOrders = () => {
         closeModal={closeModal}
         selectedOrder={selectedOrder}
         handleDelete={handleDelete}
+        deleteLoading={deleteLoading}
       />
     </>
   );

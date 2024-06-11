@@ -23,6 +23,7 @@ const Checkout = () => {
   const [formData, setFormData] = useState({
     phone: user?.user?.phone || 0,
     address: user?.user?.address || "",
+    postal_code : user?.user?.postal_code || "",
   });
 
   const handleInputChange = (e) => {
@@ -72,7 +73,7 @@ const Checkout = () => {
       dispatch(userSessionAsync());
 
       if (res.payload.message === "Update Successfull") {
-        const { phone, address } = formData;
+        const { phone, address , postal_code} = formData;
         const items = cart;
         const totalAmount = couponSuccessData
           ? totalPrice  - couponSuccessData?.discountAmount
@@ -82,6 +83,7 @@ const Checkout = () => {
           name: user?.user?.name,
           phone,
           address,
+          postal_code,
           items,
           userID,
           totalAmount,
@@ -98,6 +100,7 @@ const Checkout = () => {
           setFormData({
             phone: "",
             address: "",
+            postal_code:""
           });
         });
       }
@@ -151,8 +154,12 @@ const Checkout = () => {
                     className="px-4 py-3 bg-gray-100 text-[#333] w-full text-md border rounded-md border-gray-500 focus:border-gray-800 outline-none placeholder:text-gray-500 transition-shadow duration-200 focus:shadow-xl"
                   />
                   <input
+                   name="postal_code"
                     type="number"
+                    value={formData.postal_code}
+                    onChange={handleInputChange}
                     placeholder="Enter Postal Code"
+                    required
                     className="px-4 py-3 bg-gray-100 text-[#333] w-full text-md border rounded-md border-gray-500 focus:border-gray-800 outline-none placeholder:text-gray-500 transition-shadow duration-200 focus:shadow-xl"
                   />
                 </div>

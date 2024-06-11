@@ -38,7 +38,9 @@ export const updateOrderAsync = createAsyncThunk(
   async (formData) => {
     try {
       const response = await axios.post(updateOrderUrl, formData);
-      toast.success(response.data.message);
+      if(response.data.message === "Order Data Updated"){
+        toast.success("Order Cancelled")
+      }
       return response.data;
     } catch (error) {
       toast.error(error.response.data.error);
@@ -48,6 +50,7 @@ export const updateOrderAsync = createAsyncThunk(
 
 const initialState = {
   loading: false,
+  deleteLoading:false,
   allOrders: [],
 };
 
@@ -66,6 +69,13 @@ const orderSlice = createSlice({
         state.loading = false;
       })
 
+         // UPDATE REVIEWS
+         .addCase(updateOrderAsync.pending, (state) => {
+          state.deleteLoading = true;
+        })
+        .addCase(updateOrderAsync.fulfilled, (state) => {
+          state.deleteLoading = false;
+        })
 
       // GET ALL REVIEWS ADD CASE
       .addCase(getallOrderAsync.pending, (state) => {

@@ -2,6 +2,7 @@ import { CouponModel } from "../models/CouponModel.js";
 import { OrdersModel } from "../models/OrdersModel.js";
 import { ProductsModel } from "../models/Products.Model.js";
 import { setMongoose } from "../utils/Mongoose.js";
+import { sendEmail } from "../utils/nodemailer.js";
 
 export const createOrder = async (req, res, next) => {
   try {
@@ -14,11 +15,12 @@ export const createOrder = async (req, res, next) => {
       totalAmount,
       orderProgress,
       couponUsed,
+      postal_code
     } = req.body;
     if (items.length === 0) {
       throw new Error("No Items In Cart");
     }
-    if (!userID || !address || !phone || !totalAmount || !name) {
+    if (!userID || !address || !phone || !totalAmount || !name || !postal_code) {
       throw new Error("Please provide All Fields");
     };
     if (couponUsed) {
@@ -43,10 +45,14 @@ export const createOrder = async (req, res, next) => {
       name,
       address,
       phone,
+      postal_code,
       totalAmount,
       couponUsed,
       orderProgress,
     });
+
+    await sendEmail({ name, phone , address , postal_code , totalAmount , subject:"New Order" });
+
    
     return res.status(201).json({ message: "Order PLaced Succcessfully" });
   } catch (error) {

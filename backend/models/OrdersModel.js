@@ -37,6 +37,10 @@ const orderSchema = new mongoose.Schema(
       code: { type: String },
       discount: { type: Number },
     },
+    postal_code:{
+      type:Number,
+      default:null
+    }
   },
   { timestamps: true }
 );

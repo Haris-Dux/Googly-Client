@@ -149,17 +149,14 @@ export const ProductOverviewTwo = ({ product, id }) => {
     const id = review_Id;
 
     if (selectedRating !== rating) {
-      const updateReviewDataOptional = delete updateReviewDataOptional?.rating;
       const payload = { id, ...updateReviewData };
       payload.rating = selectedRating;
       dispatch(updatereviewsAsync(payload)).then(() => {
         dispatch(getallreviewsAsync(productId));
-        // closeUpdateModal();
       });
     } else {
       dispatch(updatereviewsAsync({ id, ...updateReviewData })).then(() => {
         dispatch(getallreviewsAsync(productId));
-        // closeUpdateModal();
       });
       setUpdateReviewData({ review: "", rating: 1 });
     }

@@ -21,6 +21,10 @@ const userSchema = new  mongoose.Schema({
   address:{
     type: String,
     default:null
+  },
+  postal_code:{
+    type:Number,
+    default:null
   }
   
  
