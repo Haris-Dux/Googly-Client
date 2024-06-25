@@ -147,7 +147,7 @@ export const createOrderAsGuest = async (req, res, next) => {
     await sendEmail({email, name, phone , address , postal_code , totalAmount , subject:"New Order" });
 
    
-    return res.status(201).json({ message: "Order PLaced Succcessfully" });
+    return res.status(201).json({ message: "Order Placed Succcessfully" });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -159,7 +159,7 @@ export const trackOrder = async (req,res,next) => {
     if (!OrderID) { 
       throw new Error("Order ID is required");
     };  
-    const order = await OrdersModel.findById(OrderID);
+    const order = await OrdersModel.findOne({OrderID});
     if (!order) {
       throw new Error("Order Not Found");
     };

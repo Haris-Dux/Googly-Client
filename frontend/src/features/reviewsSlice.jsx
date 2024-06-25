@@ -3,11 +3,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 
 // API URLs
-const createReviewUrl = "/api/reviews/createReview";
-const updateReviewUrl = "/api/reviews/updateReview";
-const deleteReviewUrl = "/api/reviews/deleteReview";
+const createReviewUrl = "http://localhost:6040/api/reviews/createReview";
+const updateReviewUrl = "http://localhost:6040/api/reviews/updateReview";
+const deleteReviewUrl = "http://localhost:6040/api/reviews/deleteReview";
 const getAllReviewsByProductUrl =
-  "/api/reviews/getAllReviewsByProduct";
+  "http://localhost:6040/api/reviews/getAllReviewsByProduct";
 
 // CREATE REVIEWS ASYNC THUNK
 export const createreviewsAsync = createAsyncThunk(

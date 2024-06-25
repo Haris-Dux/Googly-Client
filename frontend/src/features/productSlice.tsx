@@ -2,12 +2,10 @@ import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 // API URLs
-const getAllProductUrl = `/api/products/getProducts`;
-const getProductById = `/api/products/getProductById`;
-const getPoularProductUrl =
-  "/api/products/getLatestPRoducts";
-  const getBEstSellingProductUrl =
-  "/api/products/getBestSellingProducts";
+const getAllProductUrl = `http://localhost:6040/api/products/getProducts`;
+const getProductById = `http://localhost:6040/api/products/getProductById`;
+const getPoularProductUrl = "http://localhost:6040/api/products/getLatestPRoducts";
+const getBEstSellingProductUrl = "http://localhost:6040/api/products/getBestSellingProducts";
 
 // GET ALL PRODUCT ASYNC THUNK
 export const getAllProductsAsync = createAsyncThunk(
@@ -74,6 +72,7 @@ export const getProductByIdAsync = createAsyncThunk(
 const initialState = {
   loading: false,
   Productloading: false,
+  singleProductloading: false,
   products: [],
   popularProducts: [],
   singleProduct: null,
@@ -85,9 +84,9 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     // CLEAR PRODUCTS
-    clearProducts:(state)=>{
+    clearProducts: (state) => {
       state.products = [];
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -103,10 +102,10 @@ const productSlice = createSlice({
 
       // GET SINGLE PRODUCTS
       .addCase(getProductByIdAsync.pending, (state) => {
-        state.loading = true;
+        state.singleProductloading = true;
       })
       .addCase(getProductByIdAsync.fulfilled, (state, action) => {
-        state.loading = false;
+        state.singleProductloading = false;
         state.singleProduct = action.payload;
       })
 
@@ -119,16 +118,16 @@ const productSlice = createSlice({
         state.popularProducts = action.payload;
       })
 
-         // GET ALL BEST SELLING PRODUCTS ADD CASE
-         .addCase(getBestSellingProductsAsync.pending, (state) => {
-          state.loading = true;
-        })
-        .addCase(getBestSellingProductsAsync.fulfilled, (state, action) => {
-          state.loading = false;
-          state.BEstSellingProduct = action.payload;
-        });
+      // GET ALL BEST SELLING PRODUCTS ADD CASE
+      .addCase(getBestSellingProductsAsync.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getBestSellingProductsAsync.fulfilled, (state, action) => {
+        state.loading = false;
+        state.BEstSellingProduct = action.payload;
+      });
   },
 });
 
-export const {clearProducts} = productSlice.actions;
+export const { clearProducts } = productSlice.actions;
 export default productSlice.reducer;

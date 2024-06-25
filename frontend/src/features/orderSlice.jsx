@@ -3,13 +3,29 @@ import toast from "react-hot-toast";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 // API URLs
-const createOrderUrl = "/api/orders/createOrder";
-const getAllOrderUrl = "/api/orders/getAllOrdersForUser";
-const updateOrderUrl = "/api/orders/updateOrder";
+const createOrderUrl = "http://localhost:6040/api/orders/createOrder";
+const createGuestOrderUrl =
+  "http://localhost:6040/api/orders/createOrderAsGuest";
+const getAllOrderUrl = "http://localhost:6040/api/orders/getAllOrdersForUser";
+const updateOrderUrl = "http://localhost:6040/api/orders/updateOrder";
+const trackOrderUrl = "http://localhost:6040/api/orders/trackOrder";
 
-// CREATE REVIEWS ASYNC THUNK
+// TRACK ORDER ASYNC THUNK
+export const trackOrderAsync = createAsyncThunk(
+  "track/order",
+  async (orderId) => {
+    try {
+      const response = await axios.post(trackOrderUrl, orderId);
+      return response.data;
+    } catch (error) {
+      toast.error(error.response.data.error);
+    }
+  }
+);
+
+// CREATE ORDER ASYNC THUNK
 export const createOrderAsync = createAsyncThunk(
-  "reviews/create",
+  "orders/create",
   async (formData) => {
     try {
       const response = await axios.post(createOrderUrl, formData);
@@ -20,26 +36,39 @@ export const createOrderAsync = createAsyncThunk(
   }
 );
 
-// GET ALL REVIEWS BY PRODUCT ASYNC THUNK
+// CREATE GUEST ORDER ASYNC THUNK
+export const createGuestOrderAsync = createAsyncThunk(
+  "guestOrders/create",
+  async (formData) => {
+    try {
+      const response = await axios.post(createGuestOrderUrl, formData);
+      return response.data;
+    } catch (error) {
+      toast.error(error.response.data.error);
+    }
+  }
+);
+
+// GET ALL ORDER BY PRODUCT ASYNC THUNK
 export const getallOrderAsync = createAsyncThunk(
-  "reviews/getall",
+  "orders/getAll",
   async (id) => {
     try {
       const response = await axios.post(getAllOrderUrl, { id });
       return response.data;
     } catch (error) {
-      throw new Error(error)
+      throw new Error(error);
     }
   }
 );
 
 export const updateOrderAsync = createAsyncThunk(
-  "reviews/update",
+  "orders/update",
   async (formData) => {
     try {
       const response = await axios.post(updateOrderUrl, formData);
-      if(response.data.message === "Order Data Updated"){
-        toast.success("Order Cancelled")
+      if (response.data.message === "Order Data Updated") {
+        toast.success("Order Cancelled");
       }
       return response.data;
     } catch (error) {
@@ -50,8 +79,10 @@ export const updateOrderAsync = createAsyncThunk(
 
 const initialState = {
   loading: false,
-  deleteLoading:false,
+  guestLoading: false,
+  deleteLoading: false,
   allOrders: [],
+  trackOrder: [],
 };
 
 const orderSlice = createSlice({
@@ -61,7 +92,7 @@ const orderSlice = createSlice({
   extraReducers: (builder) => {
     builder
 
-      // GET ALL REVIEWS ADD CASE
+      // CREATE ORDER ADD CASE
       .addCase(createOrderAsync.pending, (state) => {
         state.loading = true;
       })
@@ -69,21 +100,38 @@ const orderSlice = createSlice({
         state.loading = false;
       })
 
-         // UPDATE REVIEWS
-         .addCase(updateOrderAsync.pending, (state) => {
-          state.deleteLoading = true;
-        })
-        .addCase(updateOrderAsync.fulfilled, (state) => {
-          state.deleteLoading = false;
-        })
+      // CREATE GUEST ORDER ADD CASE
+      .addCase(createGuestOrderAsync.pending, (state) => {
+        state.guestLoading = true;
+      })
+      .addCase(createGuestOrderAsync.fulfilled, (state) => {
+        state.guestLoading = false;
+      })
 
-      // GET ALL REVIEWS ADD CASE
+      // UPDATE ORDER
+      .addCase(updateOrderAsync.pending, (state) => {
+        state.deleteLoading = true;
+      })
+      .addCase(updateOrderAsync.fulfilled, (state) => {
+        state.deleteLoading = false;
+      })
+
+      // GET ALL ORDER ADD CASE
       .addCase(getallOrderAsync.pending, (state) => {
         state.loading = true;
       })
       .addCase(getallOrderAsync.fulfilled, (state, action) => {
         state.loading = false;
         state.allOrders = action.payload;
+      })
+
+      // TRACK ORDER ADD CASE
+      .addCase(trackOrderAsync.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(trackOrderAsync.fulfilled, (state, action) => {
+        state.loading = false;
+        state.trackOrder = action.payload;
       });
   },
 });
