@@ -39,6 +39,10 @@ const orderSchema = new mongoose.Schema(
     postal_code:{
       type:Number,
       default:null
+    },
+    email:{
+      type:String,
+      default:null
     }
   },
   { timestamps: true }

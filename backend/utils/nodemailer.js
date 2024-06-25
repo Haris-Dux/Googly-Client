@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 
 export async function sendEmail(to, from) {
-  const { email, g_Otp , subject, name, phone , address , totalAmount , postal_code} = to;
+  const { email, g_Otp , OrderID , subject, name, phone , address , totalAmount , postal_code} = to;
   let output = "";
 
   if (subject === "Reset Password Code") {
@@ -20,6 +20,7 @@ export async function sendEmail(to, from) {
     <p> Address : ${address}</p>
     <p> postal Code : ${postal_code}</p>
     <p> Total Amount : ${totalAmount}</p>
+    <p> OrderID : ${OrderID}</p>
   `;
   }
 

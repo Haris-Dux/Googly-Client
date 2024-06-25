@@ -132,7 +132,7 @@ export const createOrderAsGuest = async (req, res, next) => {
         );
    
   };
-   await OrdersModel.create({
+  const order = await OrdersModel.create({
       email,
       items,
       name,
@@ -144,7 +144,7 @@ export const createOrderAsGuest = async (req, res, next) => {
       orderProgress,
     });
 
-    await sendEmail({email, name, phone , address , postal_code , totalAmount , subject:"New Order" });
+    await sendEmail({email, OrderID:order.OrderID, name, phone , address , postal_code , totalAmount , subject:"New Order" });
 
    
     return res.status(201).json({ message: "Order PLaced Succcessfully" });
@@ -159,7 +159,7 @@ export const trackOrder = async (req,res,next) => {
     if (!OrderID) { 
       throw new Error("Order ID is required");
     };  
-    const order = await OrdersModel.findById(OrderID);
+    const order = await OrdersModel.findOne({OrderID});
     if (!order) {
       throw new Error("Order Not Found");
     };
@@ -167,4 +167,4 @@ export const trackOrder = async (req,res,next) => {
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
-}
+};
