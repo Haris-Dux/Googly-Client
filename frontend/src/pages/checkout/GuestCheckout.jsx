@@ -1,14 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateuserAsync, userSessionAsync } from "../../features/authSlice";
-import { createOrderAsync, getallOrderAsync } from "../../features/orderSlice";
+import {
+  createGuestOrderAsync,
+  createOrderAsync,
+  getallOrderAsync,
+} from "../../features/orderSlice";
 import { Helmet } from "react-helmet";
 import { clearCart } from "../../features/ActionsSlice";
 import { verifyCouponAsync } from "../../features/couponSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "react-loaders";
 
-const Checkout = () => {
+const GuestCheckout = () => {
   const navigate = useNavigate();
   const formRef = useRef(null);
   const dispatch = useDispatch();
@@ -17,13 +21,15 @@ const Checkout = () => {
 
   const { loading } = useSelector((state) => state.orders);
 
-  const user = useSelector((state) => state.auth.user);
-  const userID = user?.user?.id;
+  //   const user = useSelector((state) => state.auth.user);
+  //   const userID = user?.user?.id;
 
   const [formData, setFormData] = useState({
-    phone: user?.user?.phone || "Enter Your Phone Number",
-    address: user?.user?.address || "",
-    postal_code: user?.user?.postal_code || "",
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    postal_code: "",
   });
 
   const handleInputChange = (e) => {
@@ -38,12 +44,6 @@ const Checkout = () => {
   };
 
   const { cart, totalPrice } = useSelector((state) => state.action);
-
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
-  }, [cart, navigate, user]);
 
   const handleMoveTop = () => {
     window.scrollTo({
@@ -67,43 +67,38 @@ const Checkout = () => {
   // HANDLE SUBMIT
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const id = userID;
-    dispatch(updateuserAsync({ id, ...formData })).then((res) => {
-      dispatch(userSessionAsync());
+    const { name, email, phone, address, postal_code } = formData;
+    const items = cart;
+    const totalAmount = couponSuccessData
+      ? totalPrice - couponSuccessData?.discountAmount
+      : totalPrice;
 
-      if (res.payload.message === "Update Successfull") {
-        const { phone, address, postal_code } = formData;
-        const items = cart;
-        const totalAmount = couponSuccessData
-          ? totalPrice - couponSuccessData?.discountAmount
-          : totalPrice;
+    const requestData = {
+      name,
+      email,
+      phone,
+      address,
+      postal_code,
+      items,
+      totalAmount,
+      ...(couponSuccessData.code !== "" && { couponUsed: couponData }),
+    };
+    console.log("requestData", requestData);
 
-        const requestData = {
-          name: user?.user?.name,
-          email: user?.user?.email,
-          phone,
-          address,
-          postal_code,
-          items,
-          userID,
-          totalAmount,
-          ...(couponSuccessData.code !== "" && { couponUsed: couponData }),
-        };
-
-        dispatch(createOrderAsync(requestData)).then((res) => {
-          if (res.payload.message === "Order PLaced Succcessfully") {
-            dispatch(clearCart());
-            dispatch(getallOrderAsync(id));
-            navigate(`/order-success`);
-            handleMoveTop();
-          }
-          setFormData({
-            phone: "",
-            address: "",
-            postal_code: "",
-          });
-        });
+    dispatch(createGuestOrderAsync(requestData)).then((res) => {
+      if (res.payload.message === "Order Placed Succcessfully") {
+        dispatch(clearCart());
+        // dispatch(getallOrderAsync(id));
+        navigate(`/order-success`);
+        handleMoveTop();
       }
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        address: "",
+        postal_code: "",
+      });
     });
   };
 
@@ -112,7 +107,7 @@ const Checkout = () => {
   const handleVerifyCoupon = () => {
     const formData = {
       code: coupon,
-      userId: userID,
+      // userId: userID,
       category: categories,
     };
     dispatch(verifyCouponAsync(formData)).then((res) => {
@@ -137,13 +132,37 @@ const Checkout = () => {
           <div className="grid lg:grid-cols-2 gap-8 w-full">
             {/* FORM SIDE */}
             <div className="">
-              <h2 className="Noto text-3xl font-bold text-[#333]">Checkout</h2>
+              <h2 className="Noto text-3xl font-bold text-[#333]">
+                Complete Purchase as Guest
+              </h2>
               <p className="text-[#333] text-base mt-5 max-w-sm">
                 Complete your purchase quickly and securely with our Cash on
                 Delivery (COD).
               </p>
 
               <form ref={formRef} onSubmit={handleSubmit} className="mt-5 ">
+                {/* NAME & EMAIL */}
+                <div className="mb-3 grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  <input
+                    name="name"
+                    type="text"
+                    placeholder="Enter Full Name"
+                    value={formData?.name}
+                    onChange={handleInputChange}
+                    className="px-4 py-3 bg-white text-[#333] w-full text-md border rounded-md border-gray-500 focus:border-gray-800 outline-none placeholder:text-gray-500 transition-shadow duration-200 focus:shadow-xl"
+                  />
+                  <input
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="Enter Email Address"
+                    required
+                    className="px-4 py-3 bg-white text-[#333] w-full text-md border rounded-md border-gray-500 focus:border-gray-800 outline-none placeholder:text-gray-500 transition-shadow duration-200 focus:shadow-xl"
+                  />
+                </div>
+
+                {/* PHONE & POSTAL CODE */}
                 <div className="mb-3 grid grid-cols-1 lg:grid-cols-2 gap-4">
                   <input
                     name="phone"
@@ -151,7 +170,7 @@ const Checkout = () => {
                     placeholder="Enter Phone Number"
                     value={formData?.phone}
                     onChange={handleInputChange}
-                    className="px-4 py-3 bg-gray-100 text-[#333] w-full text-md border rounded-md border-gray-500 focus:border-gray-800 outline-none placeholder:text-gray-500 transition-shadow duration-200 focus:shadow-xl"
+                    className="px-4 py-3 bg-white text-[#333] w-full text-md border rounded-md border-gray-500 focus:border-gray-800 outline-none placeholder:text-gray-500 transition-shadow duration-200 focus:shadow-xl"
                   />
                   <input
                     name="postal_code"
@@ -160,17 +179,18 @@ const Checkout = () => {
                     onChange={handleInputChange}
                     placeholder="Enter Postal Code"
                     required
-                    className="px-4 py-3 bg-gray-100 text-[#333] w-full text-md border rounded-md border-gray-500 focus:border-gray-800 outline-none placeholder:text-gray-500 transition-shadow duration-200 focus:shadow-xl"
+                    className="px-4 py-3 bg-white text-[#333] w-full text-md border rounded-md border-gray-500 focus:border-gray-800 outline-none placeholder:text-gray-500 transition-shadow duration-200 focus:shadow-xl"
                   />
                 </div>
 
+                {/* TEXTAREA */}
                 <textarea
                   rows={4}
                   name="address"
                   value={formData.address}
                   onChange={handleInputChange}
                   placeholder="Enter Shipping Address"
-                  className="px-4 py-3 bg-gray-100 text-[#333] w-full text-md border rounded-md border-gray-500 focus:border-gray-800 outline-none placeholder:text-gray-500 transition-shadow duration-200 focus:shadow-xl"
+                  className="px-4 py-3 bg-white text-[#333] w-full text-md border rounded-md border-gray-500 focus:border-gray-800 outline-none placeholder:text-gray-500 transition-shadow duration-200 focus:shadow-xl"
                   required
                 ></textarea>
 
@@ -319,4 +339,4 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+export default GuestCheckout;

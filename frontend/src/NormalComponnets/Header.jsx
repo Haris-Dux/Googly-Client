@@ -8,6 +8,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { getCartTotal } from "../features/ActionsSlice";
 import { IoIosArrowUp } from "react-icons/io";
 import { logoutUserAsync } from "../features/authSlice";
+import { SlLocationPin } from "react-icons/sl";
 import SearchModal from "./SearchModal";
 
 const Header = () => {
@@ -62,7 +63,7 @@ const Header = () => {
     { title: "Shop", path: "/shop" },
     { title: "About", path: "/about" },
     { title: "Contact", path: "/contact" },
-    // { title: "Blog", path: "/blogs" },
+    // { title: "Track Order", path: "/track-orders" },
   ];
 
   const handleClickOutside = (event) => {
@@ -137,7 +138,9 @@ const Header = () => {
               >
                 <img
                   className="w-auto h-10 sm:h-16"
-                  src={"https://cdn.shopify.com/s/files/1/0649/1399/8024/files/22.9_KB_Size_Googly_white_Logo.png?v=1718027791"}
+                  src={
+                    "https://cdn.shopify.com/s/files/1/0649/1399/8024/files/22.9_KB_Size_Googly_white_Logo.png?v=1718027791"
+                  }
                   alt="Googly Logo"
                 />
               </Link>
@@ -145,13 +148,13 @@ const Header = () => {
               {/* -------------- HAMBURGER BUTTON FOR MOBILE VIEW -------------- */}
               {!isOpen ? (
                 <div className="flex lg:hidden">
-                    {/* SEARCH */}
-                <Link
-                  onClick={openModal}
-                  className="px-0 pb-0.5 text-lg font-medium tracking-wide text-white rounded-xl"
-                >
-                  <IoSearchOutline size={22} />
-                </Link>
+                  {/* SEARCH */}
+                  <Link
+                    onClick={openModal}
+                    className="px-0 pb-0.5 text-lg font-medium tracking-wide text-white rounded-xl"
+                  >
+                    <IoSearchOutline size={22} />
+                  </Link>
                   <Link
                     to="/cart"
                     onClick={() => window.scroll(0, 0)}
@@ -218,6 +221,19 @@ const Header = () => {
                   className="px-0 pt-2 pb-0.5 mx-4 sm:mx-2 md:mx-3 xl:mx-3 text-lg font-medium tracking-wide text-white rounded-xl"
                 >
                   <IoSearchOutline size={22} />
+                </Link>
+
+                {/* TRACK ORDER */}
+                <Link
+                  to="/track-orders"
+                  onClick={() => window.scroll(0, 0)}
+                  className="px-0 pt-2 pb-0.5 mx-4 sm:mx-2 md:mx-3 xl:mx-3 text-lg font-medium tracking-wide text-white rounded-xl"
+                >
+                  <img
+                    src="https://cdn.shopify.com/s/files/1/0852/5099/8550/files/3154344-2002.png?v=1719348412"
+                    alt=""
+                    className="w-7"
+                  />
                 </Link>
 
                 {/* CART */}

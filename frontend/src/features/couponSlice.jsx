@@ -8,8 +8,7 @@ const initialState = {
 };
 
 //API URL
-const verifyCouponUrl =
-  "/api/coupons/verifyCouponAtCheckout";
+const verifyCouponUrl = "http://localhost:6040/api/coupons/verifyCouponAtCheckout";
 
 // Register Function
 export const verifyCouponAsync = createAsyncThunk(

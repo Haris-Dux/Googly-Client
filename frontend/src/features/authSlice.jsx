@@ -3,14 +3,14 @@ import toast from "react-hot-toast";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 // API URLs
-const signupUrl = "/api/users/signup";
-const loginUrl = "/api/users/login";
-const updateUrl = "/api/users/updateUserInformation";
-const logoutUrl = "/api/users/logout";
-const userSessionUrl = "/api/users/persistUserSession";
-const forgetPassUrl = "/api/users/sendResetPasswordOTP";
-const verifyOtpPassUrl = "/api/users/verifyOtp";
-const resetPassUrl = "/api/users/updatePassword";
+const signupUrl = "http://localhost:6040/api/users/signup";
+const loginUrl = "http://localhost:6040/api/users/login";
+const updateUrl = "http://localhost:6040/api/users/updateUserInformation";
+const logoutUrl = "http://localhost:6040/api/users/logout";
+const userSessionUrl = "http://localhost:6040/api/users/persistUserSession";
+const forgetPassUrl = "http://localhost:6040/api/users/sendResetPasswordOTP";
+const verifyOtpPassUrl = "http://localhost:6040/api/users/verifyOtp";
+const resetPassUrl = "http://localhost:6040/api/users/updatePassword";
 
 // CREATE ASYNC THUNK
 export const createuserAsync = createAsyncThunk(
@@ -46,7 +46,7 @@ export const updateuserAsync = createAsyncThunk(
       const response = await axios.post(updateUrl, formData);
       return response.data;
     } catch (error) {
-      throw new Error(error)
+      throw new Error(error);
     }
   }
 );
@@ -57,7 +57,7 @@ export const userSessionAsync = createAsyncThunk("user/session", async () => {
     const response = await axios.get(userSessionUrl);
     return response.data;
   } catch (error) {
-  throw new Error(error)
+    throw new Error(error);
   }
 });
 
@@ -79,7 +79,7 @@ export const forgetuserAsync = createAsyncThunk(
       const response = await axios.post(forgetPassUrl, formData);
       return response.data;
     } catch (error) {
-      throw new Error(error)
+      toast.error(error.response.data.error);
     }
   }
 );
@@ -92,7 +92,7 @@ export const verifyOtpAsync = createAsyncThunk(
       const response = await axios.post(verifyOtpPassUrl, formData);
       return response.data;
     } catch (error) {
-      throw new Error(error)
+      toast.error(error.response.data.error);
     }
   }
 );
@@ -109,7 +109,7 @@ export const resetPassAsync = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
-      throw new Error(error)
+      toast.error(error.response.data.error);
     }
   }
 );

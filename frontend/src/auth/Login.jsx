@@ -21,7 +21,7 @@ const Login = () => {
     if (user?.login) {
       const fromCart =
         new URLSearchParams(location.search).get("from") === "cart";
-      navigate(fromCart ? "/cart" : "/");
+      navigate(fromCart ? "/checkout" : "/");
     }
   });
 

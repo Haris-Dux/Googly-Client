@@ -147,7 +147,7 @@ export const createOrderAsGuest = async (req, res, next) => {
     await sendEmail({email, OrderID:order.OrderID, name, phone , address , postal_code , totalAmount , subject:"New Order" });
 
    
-    return res.status(201).json({ message: "Order PLaced Succcessfully" });
+    return res.status(201).json({ message: "Order Placed Succcessfully" });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

@@ -4,7 +4,7 @@ import { FiMinus } from "react-icons/fi";
 import { BsTrash3 } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { FaHome } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import { TfiArrowCircleDown } from "react-icons/tfi";
 import "../selectedItem/SelectedItem.css";
@@ -16,8 +16,21 @@ import {
   removeFromCart,
 } from "../../features/ActionsSlice";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+
 const Cart = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const user = useSelector((state) => state.auth.user);
 
@@ -33,6 +46,18 @@ const Cart = () => {
       top: 470,
       behavior: "smooth",
     });
+  };
+
+  // HANDLE MOVE TO LOGIN
+  const handleLogin = () => {
+    navigate("/login?from=cart");
+    window.scroll(0, 0);
+  };
+
+  // HANDLE GUEST CHECKOUT
+  const handleGuestCheckout = () => {
+    navigate("/guest-checkout");
+    window.scroll(0, 0);
   };
 
   return (
@@ -118,8 +143,10 @@ const Cart = () => {
 
                         <div>
                           <h3 className="Noto text-lg tracking-wide font-bold text-[#333]">
-                          {product?.name} <span className="text-base Noto">({product?.product_code})</span>
-
+                            {product?.name}{" "}
+                            <span className="text-base Noto">
+                              ({product?.product_code})
+                            </span>
                           </h3>
                           <h6 className="text-md text-gray-500 mt-2 flex justify-center sm:justify-start items-center">
                             Price:{" "}
@@ -211,18 +238,54 @@ const Cart = () => {
                       <Link
                         to="/checkout"
                         onClick={() => window.scroll(0, 0)}
-                        className="mt-6 px-6 py-2.5 text-center hover:bg-black bg-[#252525] text-white w-full"
+                        className="mt-2 px-6 py-2.5 text-center hover:bg-black bg-[#252525] text-white w-full"
                       >
                         Checkout
                       </Link>
                     ) : (
-                      <Link
-                        to="/login?from=cart"
-                        onClick={() => window.scroll(0, 0)}
-                        className="mt-6 px-6 py-2.5 text-center hover:bg-black bg-[#252525] text-white w-full"
-                      >
-                        Checkout
-                      </Link>
+                      <>
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button className="w-full">Checkout</Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent className="pt-10 pb-4 mx-auto rounded-lg w-[19rem] sm:w-[26rem]">
+                            <AlertDialogHeader>
+                              <AlertDialogTitle className="text-center text-3xl">
+                                Almost Done!
+                              </AlertDialogTitle>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <div className="mt-4 flex justify-center items-center w-full flex-col gap-y-2">
+                                <AlertDialogAction
+                                  onClick={handleLogin}
+                                  className="w-full bg-gray-50 hover:bg-gray-100 text-black border border-gray-800"
+                                >
+                                  Login Now
+                                </AlertDialogAction>
+                                <span className="py-1 relative w-full flex justify-center items-center">
+                                  <div className="absolute h-[0.5px] w-full bg-gray-500"></div>
+
+                                  <span className="relative z-10 bg-white px-6">
+                                    OR
+                                  </span>
+                                </span>
+                                <AlertDialogAction
+                                  onClick={handleGuestCheckout}
+                                  className="w-full"
+                                >
+                                  Continue as Guest
+                                </AlertDialogAction>
+
+                                <div className="close">
+                                  <AlertDialogCancel className="border-none text-md hover:bg-transparent text-red-500 hover:text-red-600">
+                                    Close
+                                  </AlertDialogCancel>
+                                </div>
+                              </div>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      </>
                     )}
                   </div>
                 </div>

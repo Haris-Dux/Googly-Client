@@ -39,6 +39,8 @@ const OrderSuccessPage = React.lazy(() =>
   import("./pages/checkout/OrderSuccessPage")
 );
 import Loader2 from "./NormalComponnets/Loader";
+import GuestCheckout from "./pages/checkout/GuestCheckout";
+import TrackOrder from "./pages/order/TrackOrder";
 
 function App() {
   const dispatch = useDispatch();
@@ -94,7 +96,9 @@ function App() {
           />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/guest-checkout" element={<GuestCheckout />} />
           <Route path="/orders" element={<MyOrders />} />
+          <Route path="/track-orders" element={<TrackOrder />} />
           <Route
             path="/shop"
             element={
