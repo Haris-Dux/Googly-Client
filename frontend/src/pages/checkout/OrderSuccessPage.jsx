@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Confetti from "react-confetti";
+import { useSelector } from "react-redux";
 
 const OrderSuccessPage = () => {
   const navigate = useNavigate();
@@ -8,6 +9,9 @@ const OrderSuccessPage = () => {
     width: window.innerWidth,
     height: window.innerHeight,
   });
+
+  const user = useSelector((state) => state.auth.user);
+  const userID = user?.user?.id;
 
   const detectSize = () => {
     setDimesion({ width: window.innerWidth, height: window.innerHeight });
@@ -66,12 +70,14 @@ const OrderSuccessPage = () => {
               </p>
 
               <div className="buttons flex flex-col sm:flex-row  justify-center items-center mt-6">
-                <button
-                  onClick={() => handleMoveToPage("orders")}
-                  className="uppercase my-2 mx-2 w-52 sm:w-56 py-2.5 border border-black bg-black text-white"
-                >
-                  View Order
-                </button>
+                {userID && (
+                  <button
+                    onClick={() => handleMoveToPage("orders")}
+                    className="uppercase my-2 mx-2 w-52 sm:w-56 py-2.5 border border-black bg-black text-white"
+                  >
+                    View Order
+                  </button>
+                )}
                 <button
                   onClick={() => handleMoveToPage("shop")}
                   className="uppercase my-2 mx-2 w-52 sm:w-56 py-2.5 border border-gray-600"
