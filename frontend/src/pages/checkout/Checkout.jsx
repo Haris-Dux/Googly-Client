@@ -21,7 +21,7 @@ const Checkout = () => {
   const userID = user?.user?.id;
 
   const [formData, setFormData] = useState({
-    phone: user?.user?.phone || 0,
+    phone: user?.user?.phone || "Enter Your Phone Number",
     address: user?.user?.address || "",
     postal_code : user?.user?.postal_code || "",
   });
@@ -305,7 +305,7 @@ const Checkout = () => {
                   <p className="text-md font-bold ">
                     Rs.{" "}
                     {couponSuccessData
-                      ? totalPrice +
+                      ? totalPrice -
                         couponSuccessData?.discountAmount
                       : totalPrice }
                   </p>

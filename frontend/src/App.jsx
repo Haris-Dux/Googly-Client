@@ -20,6 +20,7 @@ const Shop = React.lazy(() => import("./pages/shop/Shop"));
 const SelectedItem = React.lazy(() =>
   import("./pages/selectedItem/SelectedItem")
 );
+import TagManager from "react-gtm-module";
 
 import Signup from "./auth/Signup"; 
 import Login from "./auth/Login";  
@@ -42,6 +43,12 @@ import Loader2 from "./NormalComponnets/Loader";
 function App() {
   const dispatch = useDispatch();
   const [showButton, setShowButton] = useState(false);
+
+  const tagManagerArgs = {
+    gtmId: "GTM-MPGDTZ6P",
+  };
+
+  TagManager.initialize(tagManagerArgs);
 
   useEffect(() => {
     const handleScroll = () => {

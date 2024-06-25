@@ -94,3 +94,77 @@ export const updateOrder = async (req, res, next) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
+export const createOrderAsGuest = async (req, res, next) => {
+  try {
+    const {
+      email,
+      items,
+      name,
+      address,
+      phone,
+      totalAmount,
+      orderProgress,
+      couponUsed,
+      postal_code
+    } = req.body;
+    if (items.length === 0) {
+      throw new Error("No Items In Cart");
+    };
+
+    if (!email || !name || !address || !phone || !totalAmount || !name || !postal_code) {
+      throw new Error("Please Fill All Fields");
+    };
+
+    if (couponUsed) {
+      const coupon = await CouponModel.findOne({ code: couponUsed.code });
+      if (!coupon) throw new Error("Coupon Not Found");
+      const updatedUseCount = coupon.uses_count + 1;
+      coupon.uses_count = updatedUseCount;
+      await coupon.save();
+    };
+
+    const ids = items.map((data)=>data._id);
+    if(ids.length > 0){
+      await ProductsModel.updateMany(
+        { _id: { $in: ids } },
+        { $inc: { stock: -1 } }
+        );
+   
+  };
+   await OrdersModel.create({
+      email,
+      items,
+      name,
+      address,
+      phone,
+      postal_code,
+      totalAmount,
+      couponUsed,
+      orderProgress,
+    });
+
+    await sendEmail({email, name, phone , address , postal_code , totalAmount , subject:"New Order" });
+
+   
+    return res.status(201).json({ message: "Order PLaced Succcessfully" });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+export const trackOrder = async (req,res,next) => {
+  try {
+    const {OrderID} = req.body;
+    if (!OrderID) { 
+      throw new Error("Order ID is required");
+    };  
+    const order = await OrdersModel.findById(OrderID);
+    if (!order) {
+      throw new Error("Order Not Found");
+    };
+    return res.status(200).json({order});
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+}

@@ -309,9 +309,25 @@ export const ProductOverviewTwo = ({ product, id }) => {
                     <>
                       {/* ALL REVIEWS  */}
                       <div className="mt-6 all_reviews">
-                        <h2 className="text-2xl text-gray-800 font-semibold">
-                          ALL REVIEWS
-                        </h2>
+                      <div className="mb-6 reviews_headers">
+                          {allreviews.length > 0 ? (
+                            <>
+                              <h2 className="text-2xl sm:text-3xl lg:text-4xl text-gray-800 text-center font-semibold">
+                                We’re feeling the love
+                              </h2>
+                              <h2 className="mt-2 text-xl text-gray-600 text-center font-semibold">
+                                Reviews{" "}
+                                <span className="text-md">
+                                  ({allreviews.length})
+                                </span>
+                              </h2>
+                            </>
+                          ) : (
+                            <h2 className="text-2xl text-gray-800 text-center font-semibold">
+                              No Reviews
+                            </h2>
+                          )}
+                        </div>
 
                         {/* ALL REVIEWS MAPPED HERE */}
                         {loading ? (

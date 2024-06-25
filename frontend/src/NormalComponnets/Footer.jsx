@@ -45,14 +45,14 @@ const Footer = () => {
                   Shop
                 </Link>
                 <Link
-                  to="/shop"
+                      to="/shop?category=Men"
                   onClick={handleMoveToTop}
                   className="text-black transition-colors duration-300 hover:underline hover:text-blue-500"
                 >
                   Men Glasses
                 </Link>
                 <Link
-                  to="/shop"
+                     to="/shop?category=Women"
                   onClick={handleMoveToTop}
                   className="text-black transition-colors duration-300 hover:underline hover:text-blue-500"
                 >
