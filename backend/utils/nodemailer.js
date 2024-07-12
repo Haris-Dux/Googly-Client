@@ -39,7 +39,7 @@ export async function sendEmail(to, from) {
 
   let mailoptions = {
     from: process.env.EMAIL_AUTH_USER_EMAIL,
-    to: subject === "Reset Password Code" ? email : ["harissaeed583@gmail.com",email],
+    to: subject === "Reset Password Code" ? email : ["shoaibgoogly4@gmail.com",email],
     subject: subject,
     html: output,
   };

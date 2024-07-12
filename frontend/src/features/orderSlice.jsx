@@ -3,12 +3,12 @@ import toast from "react-hot-toast";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 // API URLs
-const createOrderUrl = "http://localhost:6040/api/orders/createOrder";
+const createOrderUrl = "/api/orders/createOrder";
 const createGuestOrderUrl =
-  "http://localhost:6040/api/orders/createOrderAsGuest";
-const getAllOrderUrl = "http://localhost:6040/api/orders/getAllOrdersForUser";
-const updateOrderUrl = "http://localhost:6040/api/orders/updateOrder";
-const trackOrderUrl = "http://localhost:6040/api/orders/trackOrder";
+  "/api/orders/createOrderAsGuest";
+const getAllOrderUrl = "/api/orders/getAllOrdersForUser";
+const updateOrderUrl = "/api/orders/updateOrder";
+const trackOrderUrl = "/api/orders/trackOrder";
 
 // TRACK ORDER ASYNC THUNK
 export const trackOrderAsync = createAsyncThunk(

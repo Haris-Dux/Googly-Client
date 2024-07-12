@@ -15,7 +15,7 @@ export const createOrder = async (req, res, next) => {
       totalAmount,
       orderProgress,
       couponUsed,
-      postal_code
+      postal_code,email
     } = req.body;
     if (items.length === 0) {
       throw new Error("No Items In Cart");
@@ -40,6 +40,7 @@ export const createOrder = async (req, res, next) => {
    
   };
    await OrdersModel.create({
+    email,
       items,
       userID,
       name,

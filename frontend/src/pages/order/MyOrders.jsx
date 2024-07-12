@@ -147,12 +147,11 @@ const MyOrders = () => {
                 </>
               ) : (
                 <>
+                  <h2 className="text-3xl font-bold uppercase">
+                    Order Details
+                  </h2>
                   {allOrder.map((data, index) => (
                     <>
-                      <h2 className="text-3xl font-bold uppercase">
-                        Order Details
-                      </h2>
-
                       <div
                         key={index}
                         className="mt-8 flex flex-col overflow-hidden rounded-xl border border-gray-800 md:flex-row"
